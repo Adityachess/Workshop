@@ -15,14 +15,13 @@ public class DeckOfCards {
 	/**
 	 * In this method we have initialized the size of cards.
 	 */
-
 	public void deckOfCards() {
 		String[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
 		String[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen", "Ace" };
 		int numOfCards = suits.length * ranks.length;
-		System.out.println("\nNumber of cards in the deck:" + numOfCards);
-		for (int i = 0; i < ranks.length; i++) { // First we have to iterate for loop for ranks starting from index 0.
-			for (int j = 0; j < suits.length; j++) { // Now we have to itreate the suits for all the indexes of ranks
+		System.out.println("\nNumber of cards in the deck is : " + numOfCards);
+		for (int i = 0; i < ranks.length; i++) { // First we have to itterate for loop for ranks starting from index 0.
+			for (int j = 0; j < suits.length; j++) { // Now we have to ittreate the suits for all the indexes of ranks
 				cardsDeck.add(ranks[i] + "----->" + suits[j]);
 			}
 		}
@@ -32,7 +31,6 @@ public class DeckOfCards {
 	/**
 	 * Created a display method to print the array list of cardsDeck.
 	 */
-
 	public static void toDisplay(ArrayList<String> cardsDeck) {
 		System.out.println("\nCards in Deck:");
 		for (String element : cardsDeck) {
@@ -42,18 +40,44 @@ public class DeckOfCards {
 	}
 
 	/**
-	 * In this we have defined no of players should be minimum 2 and maximum 4.
+	 * In this we have to define no of players should be minimum 2 and maximum 4.
 	 */
-
 	public void noOfPlayers() {
 		System.out.print("\nEnter number of players minimum 2 , maximum 4 : ");
 		int player = scanner.nextInt();
 		if (player >= 2 && player <= 4) {
 			System.out.println("\n" + player + " players will play the game");
+			sequenceOfPlay(player);
 		} else {
 			System.out.println("Please enter number of players in the Range");
-			this.noOfPlayers();
-			scanner.close();
+			noOfPlayers();
 		}
+		scanner.close();
+	}
+
+	/**
+	 * In this method we have defined the sequence of the player.
+	 */
+	public void sequenceOfPlay(int player) {
+		System.out.println("\nSequence of cards are below : ");
+		for (int i = 1; i <= player; i++) {
+			System.out.println("\nPlayer " + i + " Getting card.............");
+			toshuffle(cardsDeck);
+		}
+	}
+
+	/**
+	 * Created a method to shuffle the cards.
+	 */
+	public static void toshuffle(ArrayList<String> cardsDeck) {
+		System.out.println("shuffling the cards before Distribution");
+		ArrayList<String> temp = new ArrayList<String>();
+		while (!cardsDeck.isEmpty()) {
+			int loc = (int) (Math.random() * cardsDeck.size());
+			temp.add(cardsDeck.get(loc));
+			cardsDeck.remove(loc);
+		}
+		cardsDeck = temp;
+		toDisplay(cardsDeck);
 	}
 }
